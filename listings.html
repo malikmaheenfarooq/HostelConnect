@@ -3,29 +3,58 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Available Hostels – HostelConnect</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Available Hostels | HostelConnect</title>
+  <script type="module">
+    // Firebase Imports
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyA_4xwxdnIwH17a9mdOrixLz-cPhAmQfd4",
+      authDomain: "hostel-connect-252d3.firebaseapp.com",
+      projectId: "hostel-connect-252d3",
+      storageBucket: "hostel-connect-252d3.appspot.com",
+      messagingSenderId: "406428488417",
+      appId: "1:406428488417:web:f65f0e3b5ca68a8a019da0"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    window.onload = async () => {
+      const listContainer = document.getElementById("hostelList");
+      const querySnapshot = await getDocs(collection(db, "hostels"));
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const card = document.createElement("div");
+        card.className = "hostel-card";
+        card.innerHTML = `
+          <h3>${data.name}</h3>
+          <p><strong>Location:</strong> ${data.location}</p>
+          <p><strong>Rent:</strong> ₹${data.rent}</p>
+          <p><strong>Description:</strong> ${data.description}</p>
+        `;
+        listContainer.appendChild(card);
+      });
+    };
+  </script>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f0f4f8;
+      padding: 2rem;
+    }
+    .hostel-card {
+      background: white;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Available Hostels</h2>
-    <p>Browse through hostels in Rajbagh, Srinagar</p>
-
-    <div class="hostel-list">
-      <!-- These will later be dynamically generated -->
-      <div class="hostel-card">
-        <h3>Alpine Residency</h3>
-        <p>₹6,000/month • Wifi, Meals, Laundry</p>
-      </div>
-      <div class="hostel-card">
-        <h3>Green Valley Hostel</h3>
-        <p>₹5,500/month • Meals & 24/7 Water</p>
-      </div>
-      <div class="hostel-card">
-        <h3>City Comforts</h3>
-        <p>₹7,200/month • Attached Bathroom, AC</p>
-      </div>
-    </div>
-  </div>
+  <h1>🏠 Available Hostels</h1>
+  <div id="hostelList"></div>
 </body>
 </html>
