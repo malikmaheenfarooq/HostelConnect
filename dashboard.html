@@ -2,73 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>HostelConnect Dashboard</title>
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyA_4xwxdnIwH17a9mdOrixLz-cPhAmQfd4",
-      authDomain: "hostel-connect-252d3.firebaseapp.com",
-      projectId: "hostel-connect-252d3",
-      storageBucket: "hostel-connect-252d3.appspot.com",
-      messagingSenderId: "406428488417",
-      appId: "1:406428488417:web:f65f0e3b5ca68a8a019da0"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    onAuthStateChanged(auth, user => {
-      if (!user) {
-        window.location.href = "login.html";
-      }
-    });
-
-    window.logout = function () {
-      signOut(auth).then(() => {
-        window.location.href = "login.html";
-      });
-    };
-
-    function goToChoice(choice) {
-      if (choice === 'look') {
-        alert("Show hostel listings page (coming next)");
-      } else {
-        alert("Show add hostel form page (coming next)");
-      }
-    }
-
-    window.goToChoice = goToChoice;
-  </script>
-  <style>
-    body {
-      font-family: sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-      background: #f9f9f9;
-    }
-    h1 {
-      margin-bottom: 30px;
-    }
-    button {
-      padding: 15px 30px;
-      font-size: 1rem;
-      margin: 10px;
-      cursor: pointer;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard - HostelConnect</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
 </head>
-<body>
-  <h1>Welcome to HostelConnect</h1>
-  <button onclick="goToChoice('look')">🔍 I'm looking for a hostel</button>
-  <button onclick="goToChoice('add')">🏠 I want to add my hostel</button>
-  <br />
-  <button onclick="logout()">🚪 Logout</button>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+  <div class="bg-white p-8 rounded shadow-md text-center">
+    <h1 class="text-2xl font-bold mb-6">Welcome to HostelConnect</h1>
+    <div class="flex flex-col space-y-4">
+      <a href="hostel-listings.html" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        Looking for a Hostel
+      </a>
+      <a href="add-hostel.html" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+        Add Your Hostel
+      </a>
+    </div>
+  </div>
 </body>
 </html>
