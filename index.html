@@ -4,15 +4,42 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>HostelConnect</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="container">
-    <h1>Welcome to HostelConnect</h1>
-    <p>Find the perfect hostel in Rajbagh, Srinagar — or list your own.</p>
-    <button onclick="goToLogin()">Login / Sign Up</button>
-  </div>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
-  <script src="script.js"></script>
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore.js"></script>
+
+  <!-- Firebase Configuration -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyA_4xwxdnIwH17a9mdOrixLz-cPhAmQfd4",
+      authDomain: "hostel-connect-252d3.firebaseapp.com",
+      projectId: "hostel-connect-252d3",
+      storageBucket: "hostel-connect-252d3.firebasestorage.app",
+      messagingSenderId: "406428488417",
+      appId: "1:406428488417:web:f65f0e3b5ca68a8a019da0"
+    };
+    firebase.initializeApp(firebaseConfig);
+  </script>
+</head>
+
+<body class="bg-gray-100 text-gray-800">
+  <!-- Landing Section -->
+  <div class="min-h-screen flex flex-col items-center justify-center text-center px-4">
+    <h1 class="text-4xl font-bold mb-4">Welcome to HostelConnect</h1>
+    <p class="mb-6 text-lg">Find, Register, and Pay for hostels across Rajbagh in real-time.</p>
+    
+    <a href="login.html">
+      <button class="bg-blue-600 text-white px-6 py-3 rounded-full shadow hover:bg-blue-700 transition">
+        Login / Sign Up
+      </button>
+    </a>
+
+    <div class="mt-10 text-sm text-gray-500">
+      <p>This is a pilot version. Built with ❤️ for students and hostel owners in Srinagar.</p>
+    </div>
+  </div>
 </body>
 </html>
