@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add Your Hostel – HostelConnect</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h2>Register Your Hostel</h2>
+    <form onsubmit="handleHostelSubmit(event)">
+      <input type="text" id="hostelName" placeholder="Hostel Name" required /><br /><br />
+      <input type="text" id="location" placeholder="Location" required /><br /><br />
+      <input type="number" id="price" placeholder="Monthly Price (₹)" required /><br /><br />
+      <textarea id="amenities" placeholder="Amenities (comma separated)" required></textarea><br /><br />
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    function handleHostelSubmit(e) {
+      e.preventDefault();
+      alert("Your hostel has been submitted for review!");
+      window.location.href = "dashboard.html";
+    }
+  </script>
+</body>
+</html>
