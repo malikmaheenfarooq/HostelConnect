@@ -1,63 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>HostelConnect - Login</title>
-  <script type="module">
-    // Firebase SDK
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import {
-      getAuth,
-      createUserWithEmailAndPassword,
-      signInWithEmailAndPassword
-    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyA_4xwxdnIwH17a9mdOrixLz-cPhAmQfd4",
-      authDomain: "hostel-connect-252d3.firebaseapp.com",
-      projectId: "hostel-connect-252d3",
-      storageBucket: "hostel-connect-252d3.appspot.com",
-      messagingSenderId: "406428488417",
-      appId: "1:406428488417:web:f65f0e3b5ca68a8a019da0"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    window.login = () => {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-
-      signInWithEmailAndPassword(auth, email, password)
-        .then(() => {
-          window.location.href = "dashboard.html";
-        })
-        .catch(error => {
-          alert("Login error: " + error.message);
-        });
-    };
-
-    window.signup = () => {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-
-      createUserWithEmailAndPassword(auth, email, password)
-        .then(() => {
-          window.location.href = "dashboard.html";
-        })
-        .catch(error => {
-          alert("Signup error: " + error.message);
-        });
-    };
-  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login / Signup - HostelConnect</title>
+  <link href="style.css" rel="stylesheet" />
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 </head>
-<body style="font-family:sans-serif; display:flex; flex-direction:column; align-items:center; margin-top:80px;">
-  <h1>Login or Sign Up</h1>
-  <input id="email" type="email" placeholder="Email" style="margin:10px; padding:8px; width:250px;" />
-  <input id="password" type="password" placeholder="Password" style="margin:10px; padding:8px; width:250px;" />
-  <div>
-    <button onclick="login()" style="margin:5px; padding:10px 20px;">Login</button>
-    <button onclick="signup()" style="margin:5px; padding:10px 20px;">Sign Up</button>
-  </div>
+<body>
+  <main class="login-container">
+    <h1>HostelConnect Login / Signup</h1>
+
+    <!-- Email Signup/Login -->
+    <div>
+      <h2>Email Login / Signup</h2>
+      <input type="email" id="email" placeholder="Enter your email" />
+      <input type="password" id="password" placeholder="Enter password (or leave blank for magic link)" />
+      <button onclick="emailLogin()">Login / Signup</button>
+      <button onclick="sendMagicLink()">Send Magic Link</button>
+    </div>
+
+    <hr/>
+
+    <!-- Phone Login -->
+    <div>
+      <h2>Phone Number Login</h2>
+      <input type="tel" id="phone" placeholder="+91XXXXXXXXXX" />
+      <div id="recaptcha-container"></div>
+      <button onclick="sendOTP()">Send OTP</button>
+
+      <input type="text" id="otp" placeholder="Enter OTP" />
+      <button onclick="verifyOTP()">Verify OTP</button>
+    </div>
+  </main>
+
+  <script src="script.js" defer></script>
 </body>
 </html>
