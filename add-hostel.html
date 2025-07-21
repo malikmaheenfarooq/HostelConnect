@@ -1,29 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Add Your Hostel – HostelConnect</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Add Hostel | HostelConnect</title>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyA_4xwxdnIwH17a9mdOrixLz-cPhAmQfd4",
+      authDomain: "hostel-connect-252d3.firebaseapp.com",
+      projectId: "hostel-connect-252d3",
+      storageBucket: "hostel-connect-252d3.appspot.com",
+      messagingSenderId: "406428488417",
+      appId: "1:406428488417:web:f65f0e3b5ca68a8a019da0"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    async function submitHostel(event) {
+      event.preventDefault();
+      const name = document.getElementById("name").value;
+      const location = document.getElementById("location").value;
+      const rent = document.getElementById("rent").value;
+      const description = document.getElementById("description").value;
+
+      await addDoc(collection(db, "hostels"), {
+        name,
+        location,
+        rent,
+        description
+      });
+
+      alert("Hostel added successfully!");
+      document.getElementById("hostelForm").reset();
+    }
+
+    window.submitHostel = submitHostel;
+  </script>
+  <style>
+    body {
+      font-family: Arial;
+      padding: 2rem;
+      background: #f7f7f7;
+    }
+    form {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    input, textarea {
+      display: block;
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      font-size: 1rem;
+    }
+    button {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 0.8rem;
+      font-size: 1rem;
+      border-radius: 5px;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Register Your Hostel</h2>
-    <form onsubmit="handleHostelSubmit(event)">
-      <input type="text" id="hostelName" placeholder="Hostel Name" required /><br /><br />
-      <input type="text" id="location" placeholder="Location" required /><br /><br />
-      <input type="number" id="price" placeholder="Monthly Price (₹)" required /><br /><br />
-      <textarea id="amenities" placeholder="Amenities (comma separated)" required></textarea><br /><br />
-      <button type="submit">Submit</button>
-    </form>
-  </div>
-
-  <script>
-    function handleHostelSubmit(e) {
-      e.preventDefault();
-      alert("Your hostel has been submitted for review!");
-      window.location.href = "dashboard.html";
-    }
-  </script>
+  <h2>Add Your Hostel</h2>
+  <form id="hostelForm" onsubmit="submitHostel(event)">
+    <input type="text" id="name" placeholder="Hostel Name" required />
+    <input type="text" id="location" placeholder="Location" required />
+    <input type="number" id="rent" placeholder="Monthly Rent (INR)" required />
+    <textarea id="description" placeholder="Description" rows="4"></textarea>
+    <button type="submit">Add Hostel</button>
+  </form>
 </body>
 </html>
